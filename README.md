@@ -1,1 +1,2 @@
-# batteryDemo
+# batteryProject
+this is battery demo
