@@ -4,43 +4,30 @@
     <!-- <v-gaode :mapData='markerData' :mapCenter='mapCenterPoniter'></v-gaode> -->
     <gaode-map :mapData="markerData"></gaode-map>
     <div id="panel">
-      <div class="panelTop"
-        v-loading="loading">
-        <div id="intro"
-          class="intro">
+      <div class="panelTop" v-loading="loading">
+        <div id="intro" class="intro">
           <h3>
             <span>{{titles}}</span>
-            <el-button @click="showAllPionter"
-              type="text"
-              mini>{{$t('positions.lookAll')}}</el-button>
+            <el-button @click="showAllPionter" type="text" mini>{{$t('positions.lookAll')}}</el-button>
           </h3>
         </div>
         <ul class="list_warp">
-          <li v-for="(item, index) in pointerArr"
-            :class="[ devicelabel == item.deviceId ? 'selected': '', item.onlineStatus === 0? 'off': '', devicelabel == item.batteryId ? 'selected': '' ]"
-            :key="item.deviceId"
-            @click="checkItem(item, index)">
+          <li v-for="(item, index) in pointerArr" :class="[ devicelabel == item.deviceId ? 'selected': '', item.onlineStatus === 0? 'off': '', devicelabel == item.batteryId ? 'selected': '' ]" :key="item.deviceId" @click="checkItem(item, index)">
             <p><span class="listIndex">{{index + 1}}、</span>{{deviceShow? item.deviceId : item.batteryId}}</p>
-            <el-badge :value="item.onLine"
-              class="item">
-              <el-button @click.prevent.stop="HistoryTrack(item.batteryId)"
-                size="mini">{{$t('positions.track')}}</el-button>
+            <el-badge :value="item.onLine" class="item">
+              <el-button @click.prevent.stop="HistoryTrack(item.batteryId)" size="mini">{{$t('positions.track')}}</el-button>
             </el-badge>
           </li>
         </ul>
       </div>
       <div class="page">
-        <el-pagination @current-change="pageChange"
-          :current-page.sync="pageNum"
-          small
-          layout="prev, pager, next"
-          :total="total">
+        <el-pagination @current-change="pageChange" :current-page.sync="pageNum" small layout="prev, pager, next" :total="total">
         </el-pagination>
       </div>
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .list_warp {
   border-top: 1px solid #f0f0f0;
   min-height: 510px;

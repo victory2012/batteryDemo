@@ -3,13 +3,9 @@
     <div class="mapcontainer">
       <div class="control">
         <div class="date">
-          <el-date-picker v-model="starts"
-            type="datetime"
-            :placeholder="$t('history.startTime')">
+          <el-date-picker v-model="starts" type="datetime" :placeholder="$t('history.startTime')">
           </el-date-picker>
-          <el-date-picker v-model="endtime"
-            type="datetime"
-            :placeholder="$t('history.endTime')">
+          <el-date-picker v-model="endtime" type="datetime" :placeholder="$t('history.endTime')">
           </el-date-picker>
           <!-- <vue-datepicker-local v-model="starts"
             clearable
@@ -23,79 +19,44 @@
             :placeholder="$t('history.endTime')"
             show-buttons
             @confirm="selectedDate" /> -->
-          <el-button size="mini"
-            type="primary"
-            plain
-            @click="selectedDate">
+          <el-button size="mini" type="primary" plain @click="selectedDate">
             {{$t('history.query')}}
           </el-button>
-          <el-button v-show="trajectory"
-            size="mini"
-            plain
-            @click="startMove"
-            :title="$t('history.start')">
+          <el-button v-show="trajectory" size="mini" plain @click="startMove" :title="$t('history.start')">
             <i class="iconfont icon-ic_song_next"></i>
           </el-button>
-          <el-button v-show="trajectory"
-            type="danger"
-            size="small"
-            @click="heatmap">{{$t('history.heatActive')}}</el-button>
-          <el-button v-show="active"
-            type="primary"
-            size="mini"
-            @click="track">{{$t('history.TrackReplay')}}</el-button>
+          <el-button v-show="trajectory" type="danger" size="small" @click="heatmap">{{$t('history.heatActive')}}</el-button>
+          <el-button v-show="active" type="primary" size="mini" @click="track">{{$t('history.TrackReplay')}}</el-button>
         </div>
       </div>
-      <div class="timeRange"
-        v-show="trajectory">
+      <div class="timeRange" v-show="trajectory">
         <span>{{$t('history.times')}}(s)</span>
-        <el-slider :max='max'
-          :min="min"
-          v-model="timeSeconds"
-          @change="speedChange"
-          vertical
-          height="200px">
+        <el-slider :max='max' :min="min" v-model="timeSeconds" @change="speedChange" vertical height="200px">
         </el-slider>
       </div>
-      <div id="mapcontainer"
-        class="map"></div>
-      <div class="HisMask"
-        v-show="mapLoading"
-        v-loading="mapLoading"></div>
+      <div id="mapcontainer" class="map"></div>
+      <div class="HisMask" v-show="mapLoading" v-loading="mapLoading"></div>
     </div>
-    <div class="panel"
-      v-loading="loading">
+    <div class="panel" v-loading="loading">
       <h2>{{$t('history.batteryList')}}</h2>
       <div class="panelTop">
         <ul class="list_warp">
-          <li v-for="(item, index) in pointerArr"
-            :class="[ devicelabel == item.batteryId ? 'selected': '',devicelabel == item.deviceId ? 'selected': '' ]"
-            :key="item.deviceId"
-            @click="checkItem(item)">
+          <li v-for="(item, index) in pointerArr" :class="[ devicelabel == item.batteryId ? 'selected': '',devicelabel == item.deviceId ? 'selected': '' ]" :key="item.deviceId" @click="checkItem(item)">
             <span style="margin-right:5px;">{{index+1}}、{{item.batteryId}}</span>
           </li>
         </ul>
       </div>
       <div class="page">
-        <el-pagination @current-change="pageChange"
-          :current-page.sync="pageNum"
-          small
-          layout="prev, pager, next"
-          :total="total">
+        <el-pagination @current-change="pageChange" :current-page.sync="pageNum" small layout="prev, pager, next" :total="total">
         </el-pagination>
       </div>
       <div class="checkTime">
         <ul>
-          <li v-for="(key, index) in blockArr"
-            @click="showThisData(key, index, $event)"
-            :class="[{'yollew': key.bgColor === 'yellow'},{'gray': key.bgColor === 'gray'},{'green': key.bgColor === 'green'}]"
-            :key="key.id"></li>
+          <li v-for="(key, index) in blockArr" @click="showThisData(key, index, $event)" :class="[{'yollew': key.bgColor === 'yellow'},{'gray': key.bgColor === 'gray'},{'green': key.bgColor === 'green'}]" :key="key.id"></li>
         </ul>
-        <div v-show="showTimeDetail"
-          class="blockInfo">
+        <div v-show="showTimeDetail" class="blockInfo">
           <div class="blockInfo_warp">
-            <div v-for="item in activePointer"
-              :key="item.createTime">{{item.dateFormat}}: {{item.onlineStatus}}</div>
+            <div v-for="item in activePointer" :key="item.createTime">{{item.dateFormat}}: {{item.onlineStatus}}</div>
           </div>
         </div>
       </div>
@@ -268,10 +229,10 @@ export default {
         onWarn(`${this.$t("history.checkErr")}`);
         return;
       }
-      if (endTime - startTime > 86400000) {
-        onWarn(`${this.$t("history.timeErr")}`);
-        return;
-      }
+      // if (endTime - startTime > 86400000) {
+      //   onWarn(`${this.$t("history.timeErr")}`);
+      //   return;
+      // }
       let opts = {
         pushDateStart: timeFormatSort(this.starts),
         pushDateEnd: timeFormatSort(this.endtime)

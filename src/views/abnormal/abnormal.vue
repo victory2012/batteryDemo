@@ -1,16 +1,11 @@
 <template>
   <div class="outer-box">
-    <div id="AddContainer"
-      class="fenceContainer"></div>
+    <div id="AddContainer" class="fenceContainer"></div>
     <div class="HandleBtn">
-      <el-button @click="goBack"
-        type="primary">{{$t('googleAbno.return')}}</el-button>
+      <el-button @click="goBack" type="primary">{{$t('googleAbno.return')}}</el-button>
     </div>
-    <div class="localPosition"
-      @click="localPosition"
-      :title="$t('googleAbno.title')">
-      <img src="../../../static/img/local_normal.png"
-        alt="">
+    <div class="localPosition" @click="localPosition" :title="$t('googleAbno.title')">
+      <img src="../../../static/img/local_normal.png" alt="">
     </div>
   </div>
 </template>
@@ -66,8 +61,9 @@ export default {
     },
     // 已经添加了围栏，根据围栏坐标 画出围栏
     hasFence (gpsList) {
-      console.log('gpsList ===>>>', gpsList);
-      let poi = gpsList.split(";");
+      const stringGPS = gpsList.toString();
+      let sort = stringGPS.substring(0, stringGPS.length - 1);
+      let poi = sort.split(';');
       let allPointers = [];
       poi.forEach((res, index) => {
         let item = res.split(",");
@@ -195,12 +191,12 @@ export default {
     this.grid = this.$route.query.grid;
     this.efence = this.$route.query.efence; // 围栏
     this.init();
-  },
-  beforeDestroy () {
-    if (typeof this.WS.close === "function") {
-      this.over();
-    }
   }
+  // beforeDestroy () {
+  //   if (typeof this.WS.close === "function") {
+  //     this.over();
+  //   }
+  // }
 };
 </script>
 <style lang="less" scoped>

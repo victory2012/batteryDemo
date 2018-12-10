@@ -27,7 +27,8 @@ export function transLatLng(wgLat, wgLng) {
 
 export function transLat(x, y, pi) {
   let ret;
-  ret = -100.0 +
+  ret =
+    -100.0 +
     2.0 * x +
     3.0 * y +
     0.2 * y * y +
@@ -74,11 +75,11 @@ export function timeFormat(time) {
   let hours = timeDate.getHours();
   let minute = timeDate.getMinutes();
   let second = timeDate.getSeconds();
-  mounth = mounth < 10 ? "0" + mounth : mounth;
-  day = day < 10 ? "0" + day : day;
-  hours = hours < 10 ? "0" + hours : hours;
-  minute = minute < 10 ? "0" + minute : minute;
-  second = second < 10 ? "0" + second : second;
+  mounth = mounth < 10 ? '0' + mounth : mounth;
+  day = day < 10 ? '0' + day : day;
+  hours = hours < 10 ? '0' + hours : hours;
+  minute = minute < 10 ? '0' + minute : minute;
+  second = second < 10 ? '0' + second : second;
   return `${year}-${mounth}-${day} ${hours}:${minute}:${second}`;
 }
 
@@ -94,12 +95,12 @@ export function timeFormatSort(time) {
   let hours = timeDate.getHours();
   let minute = timeDate.getMinutes();
   let second = timeDate.getSeconds();
-  mounth = mounth < 10 ? "0" + mounth : mounth;
-  day = day < 10 ? "0" + day : day;
-  hours = hours < 10 ? "0" + hours : hours;
-  minute = minute < 10 ? "0" + minute : minute;
-  second = second < 10 ? "0" + second : second;
-  return year + "" + mounth + "" + day + "" + hours + "" + minute + "" + second;
+  mounth = mounth < 10 ? '0' + mounth : mounth;
+  day = day < 10 ? '0' + day : day;
+  hours = hours < 10 ? '0' + hours : hours;
+  minute = minute < 10 ? '0' + minute : minute;
+  second = second < 10 ? '0' + second : second;
+  return year + '' + mounth + '' + day + '' + hours + '' + minute + '' + second;
 }
 export function timeFormats(time) {
   if (!time) return;
@@ -110,13 +111,13 @@ export function timeFormats(time) {
   let hours = timeDate.getHours();
   let minute = timeDate.getMinutes();
   let second = timeDate.getSeconds();
-  mounth = mounth < 10 ? "0" + mounth : mounth;
-  day = day < 10 ? "0" + day : day;
-  hours = hours < 10 ? "0" + hours : hours;
-  minute = minute < 10 ? "0" + minute : minute;
-  second = second < 10 ? "0" + second : second;
+  mounth = mounth < 10 ? '0' + mounth : mounth;
+  day = day < 10 ? '0' + day : day;
+  hours = hours < 10 ? '0' + hours : hours;
+  minute = minute < 10 ? '0' + minute : minute;
+  second = second < 10 ? '0' + second : second;
   return (
-    year + "-" + mounth + "-" + day + "  " + hours + ":" + minute + ":" + second
+    year + '/' + mounth + '/' + day + ' ' + hours + ':' + minute + ':' + second
   );
 }
 
@@ -128,22 +129,22 @@ export function nowDate() {
   let hours = timeDate.getHours();
   let minute = timeDate.getMinutes();
   let second = timeDate.getSeconds();
-  mounth = mounth < 10 ? "0" + mounth : mounth;
-  day = day < 10 ? "0" + day : day;
-  hours = hours < 10 ? "0" + hours : hours;
-  minute = minute < 10 ? "0" + minute : minute;
-  second = second < 10 ? "0" + second : second;
+  mounth = mounth < 10 ? '0' + mounth : mounth;
+  day = day < 10 ? '0' + day : day;
+  hours = hours < 10 ? '0' + hours : hours;
+  minute = minute < 10 ? '0' + minute : minute;
+  second = second < 10 ? '0' + second : second;
   return (
-    year + "-" + mounth + "-" + day + "  " + hours + ":" + minute + ":" + second
+    year + '/' + mounth + '/' + day + '  ' + hours + ':' + minute + ':' + second
   );
 }
 
 export function userData() {
-  let data = JSON.parse(sessionStorage.getItem("loginData"));
-  if (data.userRole === "palt_super_admin") {
+  let data = JSON.parse(sessionStorage.getItem('loginData'));
+  if (data.userRole === 'palt_super_admin') {
     return {};
   }
-  if (data.userRole === "super_admin") {
+  if (data.userRole === 'super_admin') {
     return {
       manufacturerId: data.enterpriseRole
     };
@@ -157,7 +158,7 @@ export function trakTimeformat(str) {
     let hour = str.substring(6, 8);
     let minute = str.substring(8, 10);
     let seconds = str.substring(10, 12);
-    return `20${yy}-${mm}-${day} ${hour}:${minute}:${seconds}`;
+    return timeFormats(`20${yy}/${mm}/${day} ${hour}:${minute}:${seconds} UTC`);
   }
 }
 
@@ -177,37 +178,37 @@ export function yesTody() {
 
 export function userRole(str) {
   switch (str) {
-    case "plat_super_admin":
-      return "超级管理员";
-    case "super_admin":
-      return "超级管理员";
-    case "admin":
-      return "管理员";
-    case "customer_super_admin":
-      return "管理员";
-    case "manufacturer_super_admin":
-      return "管理员";
+    case 'plat_super_admin':
+      return '超级管理员';
+    case 'super_admin':
+      return '超级管理员';
+    case 'admin':
+      return '管理员';
+    case 'customer_super_admin':
+      return '管理员';
+    case 'manufacturer_super_admin':
+      return '管理员';
     default:
-      return "";
+      return '';
   }
 }
 export function companyRole(str) {
   switch (str) {
-    case "platform":
-      return "平台";
-    case "manufacturer":
-      return "生产商";
-    case "customer":
-      return "客户";
-    case "admin":
-      return "客户";
+    case 'platform':
+      return '平台';
+    case 'manufacturer':
+      return '生产商';
+    case 'customer':
+      return '客户';
+    case 'admin':
+      return '客户';
     default:
-      return "";
+      return '';
   }
 }
 export function sortGps(str) {
   if (!str) return;
-  let pos = str.toString().split(".");
+  let pos = str.toString().split('.');
   let las = pos[1].substring(0, 6);
   return `${pos[0]}.${las}`;
 }
