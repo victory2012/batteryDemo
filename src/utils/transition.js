@@ -151,7 +151,15 @@ export function userData() {
   }
 }
 export function trakTimeformat(str) {
-  if (str) {
+  if (str.toString().length === 14) {
+    let yy = str.substring(0, 4);
+    let mm = str.substring(4, 6);
+    let day = str.substring(6, 8);
+    let hour = str.substring(8, 10);
+    let minute = str.substring(10, 12);
+    let seconds = str.substring(12, 14);
+    return timeFormats(`${yy}/${mm}/${day} ${hour}:${minute}:${seconds} UTC`);
+  } else {
     let yy = str.substring(0, 2);
     let mm = str.substring(2, 4);
     let day = str.substring(4, 6);

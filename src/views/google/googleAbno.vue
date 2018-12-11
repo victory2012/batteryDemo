@@ -1,16 +1,11 @@
 <template>
   <div class="outer-box">
-    <div id="AddContainer"
-      class="fenceContainer"></div>
+    <div id="AddContainer" class="fenceContainer"></div>
     <div class="HandleBtn">
-      <el-button @click="goBack"
-        type="primary">{{$t('googleAbno.return')}}</el-button>
+      <el-button @click="goBack" type="primary">{{$t('googleAbno.return')}}</el-button>
     </div>
-    <div class="localPosition"
-      @click="singleDevice"
-      :title="$t('googleAbno.title')">
-      <img src="../../../static/img/local_normal.png"
-        alt="">
+    <div class="localPosition" @click="singleDevice" :title="$t('googleAbno.title')">
+      <img src="../../../static/img/local_normal.png" alt="">
     </div>
   </div>
 </template>
@@ -48,7 +43,7 @@ export default {
           map.setCenter(outPointer);
           let marker = new google.maps.Marker({
             position: outPointer,
-            label: "out",
+            // label: "out",
             title: `${this.$t("googleAbno.Geofence")}`,
             map: map
           });
@@ -120,7 +115,7 @@ export default {
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(lngs[1], lngs[0]),
           title: `${this.$t("googleAbno.nowPosition")}`,
-          label: "now",
+          label: "Now",
           map: map
         });
         this.markers.push(marker);

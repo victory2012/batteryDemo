@@ -280,7 +280,9 @@ export default {
             let keys = Object.keys(this.pointerObj);
             keys.forEach((item, index) => {
               if (item === this.deviceId || item === this.pathParams) {
-                this.GaoDeMap(this.pointerObj[item], "fromClick");
+                this.GaoDeMap({
+                  [item]: this.pointerObj[item]
+                }, "fromClick");
                 return false;
               }
             });

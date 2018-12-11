@@ -266,24 +266,22 @@ export default {
               }
             })
           }
-          // let battery = batteryIdArr[obj[0]]; // 从电池id 字典中获取电池id，obj[0] 为设备id。
-          // let pointerObjKeys = Object.keys(this.pointerObj);
-          // obj.forEach(() => {
-          //   pointerObj[obj[0]] = `${obj[2]},${
-          //     obj[1]
-          //   },${nowDate()},${battery},1,1,${ponterIndexs + 1},${obj[3]}`; // pointerObj 对象。其key为设备id（唯一性），value为字符串、
-          //   // 依次顺序为 经度、纬度、时间、电池id、在线状态、推送数据标志, 电压
-          // });
+          // console.log('deviceId', this.deviceId)
+          // console.log('pathParams', this.pathParams)
+          // console.log('viewAll', this.viewAll)
+          // console.log('pointerObj', this.pointerObj)
           if ((this.deviceId || this.pathParams) && !this.viewAll) {
             let keys = Object.keys(this.pointerObj);
             keys.forEach((item, index) => {
               if (item === this.deviceId || item === this.pathParams) {
-                this.GaoDeMap(this.pointerObj[item], "fromClick");
+                this.GaoDeMap({
+                  [item]: this.pointerObj[item]
+                }, "fromClick");
                 return false;
               }
             });
           } else {
-            this.GaoDeMap(this.pointerObj, "fromWs");
+            this.GaoDeMap(this.pointerObj, "fromClick");
           }
         }
       };
@@ -326,6 +324,7 @@ export default {
      */
     checkItem (item, index) {
       if (!item.longitude || !item.latitude) return;
+      infoWindow && infoWindow.close();
       console.log(item);
       this.mapCenterPoniter = new AMap.LngLat(item.longitude, item.latitude);
       this.viewAll = false;
@@ -341,20 +340,17 @@ export default {
         });
         console.log(selectObj);
         this.GaoDeMap(selectObj, "fromClick");
-        // this.markerData = {
-        //   data: selectObj,
-        //   type: "fromClick"
-        // };
       }
     },
     GaoDeMap (data, fromWs) {
-      console.log('data ===>>>', data);
+      // console.log('data ===>>>', data);
       this.markers && map.remove(this.markers);
+      this.markers = [];
       let allmarkerArr = Object.values(data);
       let markerkeys = Object.keys(data);
       for (let i = 0; i < allmarkerArr.length; i++) {
         var lngs = allmarkerArr[i].toString().split(",");
-        if (lngs[0].length > 6 && lngs[1].length > 6) {
+        if (lngs[0] && lngs[1]) {
           var marker = new AMap.Marker({
             position: [lngs[0], lngs[1]],
             offset: new AMap.Pixel(-12, -12),

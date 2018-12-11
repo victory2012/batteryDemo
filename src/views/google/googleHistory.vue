@@ -55,6 +55,9 @@
           <li v-for="(key, index) in blockArr" @click="showThisData(key, index, $event)" :class="[{'yollew': key.bgColor === 'yellow'},{'gray': key.bgColor === 'gray'},{'green': key.bgColor === 'green'}]" :key="key.id"></li>
         </ul>
         <div v-show="showTimeDetail" class="blockInfo">
+          <div class="close">
+            <i class="el-icon-close" @click="closeTimeDetail"></i>
+          </div>
           <div class="blockInfo_warp">
             <div v-for="item in activePointer" :key="item.createTime">{{item.dateFormat}}: {{item.onlineStatus}}</div>
           </div>
@@ -119,7 +122,6 @@ export default {
   methods: {
     /* 点击小格子 事件 */
     showThisData (key, index, event) {
-      // console.log(this.$refs.blockInfo)
       this.activePointer = [];
       pointArr.forEach(key => {
         if (key.index === index + 1) {
@@ -127,6 +129,9 @@ export default {
           this.activePointer.push(key);
         }
       });
+    },
+    closeTimeDetail () {
+      this.showTimeDetail = false;
     },
     // 通过设备id 来查看对应的上下线时间数据
     getTimeList (id) {
@@ -665,6 +670,7 @@ export default {
         max-height: 150px;
         overflow-y: auto;
         overflow-x: hidden;
+        background: #ffffff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         .blockInfo_warp {
           border-radius: 3px;
@@ -676,8 +682,12 @@ export default {
             line-height: 30px;
             list-style: none;
             padding-left: 10px;
-            background: #ffffff;
           }
+        }
+        .close {
+          text-align: right;
+          padding: 2px 5px;
+          cursor: pointer;
         }
       }
     }

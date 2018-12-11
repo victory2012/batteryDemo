@@ -44,7 +44,7 @@ export default {
           position: new AMap.LngLat(point[0], point[1]),
           icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
           label: {
-            content: `${this.$t("googleAbno.Geofence")}`,
+            // content: `${this.$t("googleAbno.Geofence")}`,
             offset: new AMap.Pixel(20, 20)
           }
         });
