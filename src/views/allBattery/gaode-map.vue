@@ -1,27 +1,14 @@
 <template>
   <div class="warrp">
-    <!-- <div id="tip">
-      选择省：
-      <el-select v-model="defaultOption" id='province' placeholder="请选择" @change="selectChange">
-        <el-option v-for="item in selectArr" :key="item.adcode" :label="item.name" :value="item.adcode">
-        </el-option>
-      </el-select>
-    </div> -->
     <div id="container" class="mapWarrp"></div>
   </div>
 </template>
 <script>
 import AMap from "AMap";
-// import {
-//   mapState
-// } from 'vuex'
 let map;
-// let polygons = [];
-// let district;
-// let markerArr = {};
 export default {
   props: ["propData"],
-  data() {
+  data () {
     return {
       markers: []
     };
@@ -29,14 +16,22 @@ export default {
 
   watch: {
     propData: {
-      handler: function(val, oldVal) {
+      handler: function (val, oldVal) {
         this.mapInit(val.data, val.type);
       },
       deep: true
     }
   },
   methods: {
-    mapInit(obj, type) {
+    init () {
+      const lang = sessionStorage.getItem("locale") === "en" ? "en" : "zh_cn";
+      map = new AMap.Map("container", {
+        resizeEnable: true,
+        zoom: 10,
+        lang: lang
+      });
+    },
+    mapInit (obj, type) {
       console.log(obj);
       if (this.markers.length > 0) {
         map.remove(this.markers);
@@ -61,20 +56,12 @@ export default {
       if (type === "http") {
         map.setFitView(); // 地图自适应
       }
-    },
-    init() {
-      const lang = sessionStorage.getItem("locale") === "en" ? "en" : "zh_cn";
-      map = new AMap.Map("container", {
-        resizeEnable: true,
-        zoom: 10,
-        lang: lang
-      });
     }
   },
-  mounted() {
+  mounted () {
     this.init();
   },
-  beforeDestroy() {
+  beforeDestroy () {
     map.destroy();
   }
 };
