@@ -215,6 +215,7 @@ module.exports = {
       email: '邮箱（选填）',
       enterpriseName: '企业名称',
       nature: '用户范围',
+      nature1: '范围',
       manufacturer: '创建生产企业管理员',
       customer: '添加客户企业管理员',
       manuProduct: '添加生产企业普通管理员',

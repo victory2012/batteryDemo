@@ -209,6 +209,7 @@ module.exports = {
       email: 'Email(optional)',
       enterpriseName: 'Company Name',
       nature: 'Region',
+      nature1: 'Region',
       manufacturer: 'New Manufacturer Administrator.',
       customer: 'New Customer Administrator.',
       manuProduct: 'New Manufacturer User.',

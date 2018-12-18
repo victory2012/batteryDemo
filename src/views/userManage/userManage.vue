@@ -1,225 +1,150 @@
 <template>
   <div class="user">
-    <div class="userBtn"
-      v-if="adminRole">
+    <div class="userBtn" v-if="adminRole">
       <!-- <div @click="creatUser = true">
         <img src="../../static/img/add-user.png" alt="">
         <p>创建企业用户</p>
       </div> -->
-      <div v-if="manufacturer"
-        @click="creatAdminClick">
-        <img src="../../../static/img/add-admin.png"
-          alt="">
+      <div v-if="manufacturer" @click="creatAdminClick">
+        <img src="../../../static/img/add-admin.png" alt="">
         <p>{{$t('useMsg.add.manufacturer')}}</p>
       </div>
-      <div v-else-if="customer"
-        @click="customerClick">
-        <img src="../../../static/img/add-user.png"
-          alt="">
+      <div v-else-if="customer" @click="customerClick">
+        <img src="../../../static/img/add-user.png" alt="">
         <p>{{$t('useMsg.add.customer')}}</p>
       </div>
-      <div v-if="manufacturerAdmin"
-        @click="manAdminClick">
-        <img src="../../../static/img/add-user.png"
-          alt="">
+      <div v-if="manufacturerAdmin" @click="manAdminClick">
+        <img src="../../../static/img/add-user.png" alt="">
         <p>{{$t('useMsg.add.manuProduct')}}</p>
       </div>
-      <div v-if="customerAdmin"
-        @click="creatCustormAdminClick">
-        <img src="../../../static/img/add-user.png"
-          alt="">
+      <div v-if="customerAdmin" @click="creatCustormAdminClick">
+        <img src="../../../static/img/add-user.png" alt="">
         <p>{{$t('useMsg.add.cusNoraml')}}</p>
       </div>
     </div>
     <div v-if="manufacturer">
-      <el-dialog :title="$t('useMsg.add.manufacturer')"
-        :visible.sync="creatAdmin"
-        width="600px">
-        <el-form :model="adminForm"
-          :rules="customerRules"
-          ref="adminForm">
+      <el-dialog :title="$t('useMsg.add.manufacturer')" :visible.sync="creatAdmin" width="600px">
+        <el-form :model="adminForm" :rules="customerRules" ref="adminForm">
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.userName')"
-                :error="nameErr"
-                prop="userName">
-                <el-input v-model.trim="adminForm.userName"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.userName')" :error="nameErr" prop="userName">
+                <el-input v-model.trim="adminForm.userName" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.password')"
-                prop="password">
-                <el-input v-model.trim="adminForm.password"
-                  type="password"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.password')" prop="password">
+                <el-input v-model.trim="adminForm.password" type="password" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.phone')"
-                prop="phoneNumber">
-                <el-input v-model.trim="adminForm.phoneNumber"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.phone')" prop="phoneNumber">
+                <el-input v-model.trim="adminForm.phoneNumber" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.email')"
-                prop="email">
-                <el-input v-model.trim="adminForm.email"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.email')" prop="email">
+                <el-input v-model.trim="adminForm.email" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.enterpriseName')"
-                prop="enterpriseName">
-                <el-input v-model.trim="adminForm.enterpriseName"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.enterpriseName')" prop="enterpriseName">
+                <el-input v-model.trim="adminForm.enterpriseName" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.nature')"
-                prop="nature">
-                <el-select v-model.trim="adminForm.nature"
-                  :placeholder="$t('useMsg.add.nature')"
-                  style="width:240px;">
-                  <el-option v-for="item in natureOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+              <el-form-item :label="$t('useMsg.add.nature')" prop="nature">
+                <el-select v-model.trim="adminForm.nature" :placeholder="$t('useMsg.add.nature')" style="width:240px;">
+                  <el-option v-for="item in natureOptions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-        <div slot="footer"
-          class="dialog-footer">
+        <div slot="footer" class="dialog-footer">
           <el-button @click="resetAdmin('adminForm')">{{$t('useMsg.add.cancel')}}</el-button>
-          <el-button @click="submitAdmin('adminForm')"
-            type="primary">{{$t('useMsg.add.sure')}}</el-button>
+          <el-button @click="submitAdmin('adminForm')" type="primary">{{$t('useMsg.add.sure')}}</el-button>
         </div>
       </el-dialog>
     </div>
     <div v-if="customer">
-      <el-dialog :title="$t('useMsg.add.customer')"
-        :visible.sync="creatCustorm"
-        width="600px">
-        <el-form :model="customerForm"
-          :rules="customerRules"
-          ref="customerForm">
+      <el-dialog :title="$t('useMsg.add.customer')" :visible.sync="creatCustorm" width="600px">
+        <el-form :model="customerForm" :rules="customerRules" ref="customerForm">
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.userName')"
-                :error="nameErr"
-                prop="userName">
-                <el-input v-model.trim="customerForm.userName"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.userName')" :error="nameErr" prop="userName">
+                <el-input v-model.trim="customerForm.userName" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.password')"
-                prop="password">
-                <el-input v-model.trim="customerForm.password"
-                  type="password"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.password')" prop="password">
+                <el-input v-model.trim="customerForm.password" type="password" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.phone')"
-                prop="phoneNumber">
-                <el-input v-model.trim="customerForm.phoneNumber"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.phone')" prop="phoneNumber">
+                <el-input v-model.trim="customerForm.phoneNumber" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.enterpriseName')"
-                prop="enterpriseName">
-                <el-input v-model.trim="customerForm.enterpriseName"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.enterpriseName')" prop="enterpriseName">
+                <el-input v-model.trim="customerForm.enterpriseName" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.email')"
-                prop="email">
-                <el-input v-model.trim="customerForm.email"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.email')" prop="email">
+                <el-input v-model.trim="customerForm.email" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.nature')"
-                prop="nature">
-                <el-select v-model.trim="customerForm.nature"
-                  :placeholder="$t('useMsg.add.nature')"
-                  style="width:240px;">
-                  <el-option v-for="item in natureOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+              <el-form-item :label="$t('useMsg.add.nature')" prop="nature">
+                <el-select v-model.trim="customerForm.nature" :placeholder="$t('useMsg.add.nature')" style="width:240px;">
+                  <el-option v-for="item in natureOptions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-        <div slot="footer"
-          class="dialog-footer">
+        <div slot="footer" class="dialog-footer">
           <el-button @click="resetCustomer('customerForm')">{{$t('useMsg.add.cancel')}}</el-button>
-          <el-button @click="submitCustomer('customerForm')"
-            type="primary">{{$t('useMsg.add.sure')}}</el-button>
+          <el-button @click="submitCustomer('customerForm')" type="primary">{{$t('useMsg.add.sure')}}</el-button>
         </div>
       </el-dialog>
     </div>
     <div v-if="manufacturerAdmin">
-      <el-dialog :title="$t('useMsg.add.manuProduct')"
-        :visible.sync="manAdmin"
-        width="600px">
-        <el-form :model="manAdminForm"
-          :rules="customerRules"
-          ref="manAdminForm">
+      <el-dialog :title="$t('useMsg.add.manuProduct')" :visible.sync="manAdmin" width="600px">
+        <el-form :model="manAdminForm" :rules="customerRules" ref="manAdminForm">
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.userName')"
-                :error="nameErr"
-                prop="userName">
-                <el-input v-model.trim="manAdminForm.userName"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.userName')" :error="nameErr" prop="userName">
+                <el-input v-model.trim="manAdminForm.userName" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.password')"
-                prop="password">
-                <el-input v-model.trim="manAdminForm.password"
-                  type="password"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.password')" prop="password">
+                <el-input v-model.trim="manAdminForm.password" type="password" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.phone')"
-                prop="phoneNumber">
-                <el-input v-model.trim="manAdminForm.phoneNumber"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.phone')" prop="phoneNumber">
+                <el-input v-model.trim="manAdminForm.phoneNumber" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.nature')"
-                prop="nature">
-                <el-select v-model="manAdminForm.nature"
-                  :placeholder="$t('useMsg.add.nature')"
-                  style="width:240px;">
-                  <el-option v-for="item in natureOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+              <el-form-item :label="$t('useMsg.add.nature')" prop="nature">
+                <el-select v-model="manAdminForm.nature" :placeholder="$t('useMsg.add.nature')" style="width:240px;">
+                  <el-option v-for="item in natureOptions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -232,65 +157,43 @@
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.email')"
-                prop="email">
-                <el-input v-model.trim="manAdminForm.email"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.email')" prop="email">
+                <el-input v-model.trim="manAdminForm.email" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-        <div slot="footer"
-          class="dialog-footer">
+        <div slot="footer" class="dialog-footer">
           <el-button @click="resetManufacturer('manAdminForm')">{{$t('useMsg.add.cancel')}}</el-button>
-          <el-button @click="submitManufacturerAdmin('manAdminForm')"
-            type="primary">{{$t('useMsg.add.sure')}}</el-button>
+          <el-button @click="submitManufacturerAdmin('manAdminForm')" type="primary">{{$t('useMsg.add.sure')}}</el-button>
         </div>
       </el-dialog>
     </div>
     <div v-if="customerAdmin">
-      <el-dialog :title="$t('useMsg.add.cusNoraml')"
-        :visible.sync="creatCustormAdmin"
-        width="600px">
-        <el-form :model="CustormAdminForm"
-          :rules="customerRules"
-          ref="CustormAdminForm">
+      <el-dialog :title="$t('useMsg.add.cusNoraml')" :visible.sync="creatCustormAdmin" width="600px">
+        <el-form :model="CustormAdminForm" :rules="customerRules" ref="CustormAdminForm">
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.userName')"
-                :error="nameErr"
-                prop="userName">
-                <el-input v-model.trim="CustormAdminForm.userName"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.userName')" :error="nameErr" prop="userName">
+                <el-input v-model.trim="CustormAdminForm.userName" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.password')"
-                prop="password">
-                <el-input v-model.trim="CustormAdminForm.password"
-                  type="password"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.password')" prop="password">
+                <el-input v-model.trim="CustormAdminForm.password" type="password" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.phone')"
-                prop="phoneNumber">
-                <el-input v-model.trim="CustormAdminForm.phoneNumber"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.phone')" prop="phoneNumber">
+                <el-input v-model.trim="CustormAdminForm.phoneNumber" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.nature')"
-                prop="nature">
-                <el-select v-model.trim="CustormAdminForm.nature"
-                  :placeholder="$t('useMsg.add.nature')"
-                  style="width:240px;">
-                  <el-option v-for="item in natureOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+              <el-form-item :label="$t('useMsg.add.nature')" prop="nature">
+                <el-select v-model.trim="CustormAdminForm.nature" :placeholder="$t('useMsg.add.nature')" style="width:240px;">
+                  <el-option v-for="item in natureOptions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -303,54 +206,35 @@
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item :label="$t('useMsg.add.email')"
-                prop="email">
-                <el-input v-model.trim="CustormAdminForm.email"
-                  auto-complete="off"></el-input>
+              <el-form-item :label="$t('useMsg.add.email')" prop="email">
+                <el-input v-model.trim="CustormAdminForm.email" auto-complete="off"></el-input>
               </el-form-item>
             </el-col>
 
           </el-row>
         </el-form>
-        <div slot="footer"
-          class="dialog-footer">
+        <div slot="footer" class="dialog-footer">
           <el-button @click="resetCustormAdmin('CustormAdminForm')">{{$t('useMsg.add.cancel')}}</el-button>
-          <el-button @click="submitCustormAdmin('CustormAdminForm')"
-            type="primary">{{$t('useMsg.add.sure')}}</el-button>
+          <el-button @click="submitCustormAdmin('CustormAdminForm')" type="primary">{{$t('useMsg.add.sure')}}</el-button>
         </div>
       </el-dialog>
     </div>
     <div>
-      <el-table v-loading="loading"
-        :data="tableData"
-        max-height="750">
-        <el-table-column type="index"
-          width="80"
-          align="center"
-          :label="$t('useMsg.serial')"></el-table-column>
-        <el-table-column prop="userName"
-          align="center"
-          :label="$t('useMsg.name')">
+      <el-table v-loading="loading" :data="tableData" max-height="750">
+        <el-table-column type="index" width="80" align="center" :label="$t('useMsg.serial')"></el-table-column>
+        <el-table-column prop="userName" align="center" :label="$t('useMsg.name')">
         </el-table-column>
-        <el-table-column prop="accountRole"
-          align="center"
-          :label="$t('useMsg.accountIdentity')">
+        <el-table-column prop="accountRole" align="center" :label="$t('useMsg.accountIdentity')">
         </el-table-column>
-        <el-table-column prop="enterpriseRole"
-          align="center"
-          :label="$t('useMsg.companyIdentity')">
+        <el-table-column prop="enterpriseRole" align="center" :label="$t('useMsg.companyIdentity')">
         </el-table-column>
-        <el-table-column prop="enterpriseName"
-          align="center"
-          :label="$t('useMsg.enterpriseName')">
+        <el-table-column prop="enterpriseName" align="center" :label="$t('useMsg.enterpriseName')">
         </el-table-column>
-        <el-table-column prop="phoneNumber"
-          align="center"
-          :label="$t('useMsg.phone')">
+        <el-table-column prop="phoneNumber" align="center" :label="$t('useMsg.phone')">
         </el-table-column>
-        <el-table-column prop="email"
-          align="center"
-          :label="$t('useMsg.email')">
+        <el-table-column prop="nature" align="center" :label="$t('useMsg.add.nature1')">
+        </el-table-column>
+        <el-table-column prop="email" align="center" :label="$t('useMsg.email')">
         </el-table-column>
         <!-- <el-table-column label="操作" align="center">
         <template slot-scope="scope">
@@ -364,13 +248,7 @@
       </el-table-column> -->
       </el-table>
       <div class="block">
-        <el-pagination @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          :page-sizes="handleSizeData"
-          :page-size="handleSize"
-          layout="sizes, prev, pager, next"
-          :total="totalPage">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="handleSizeData" :page-size="handleSize" layout="sizes, prev, pager, next" :total="totalPage">
         </el-pagination>
       </div>
     </div>
@@ -735,6 +613,7 @@ export default {
               key.accountRole = this.userRole(key.userRole);
               key.status = key.status === 0 ? false : true;
               key.email = key.email;
+              key.nature = key.mapType === 1 ? this.$t("useMsg.add.international") : this.$t("useMsg.add.china");
               key.enterpriseRole = this.companyRole(key.enterpriseRole);
               this.tableData.push(key);
             });
